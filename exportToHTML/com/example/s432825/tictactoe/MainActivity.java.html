@@ -1,0 +1,412 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MainActivity.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.example.s432825.tictactoe; 
+ 
+</span><span class="s0">import </span><span class="s1">android.support.v4.app.ServiceCompat; 
+</span><span class="s0">import </span><span class="s1">android.support.v7.app.AppCompatActivity; 
+</span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.widget.Button; 
+</span><span class="s0">import </span><span class="s1">android.widget.ImageView; 
+</span><span class="s0">import </span><span class="s1">android.widget.TextView; 
+ 
+</span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+</span><span class="s0">import </span><span class="s1">java.util.Random; 
+ 
+</span><span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity { 
+    </span><span class="s0">public </span><span class="s1">ArrayList&lt;Button&gt; TTTboard; 
+    </span><span class="s0">int </span><span class="s1">XWIN; 
+    </span><span class="s0">int </span><span class="s1">OWIN; 
+    </span><span class="s0">int </span><span class="s1">Move; 
+ 
+ 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) { 
+        </span><span class="s0">super</span><span class="s1">.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main); 
+        TTTboard = </span><span class="s0">new </span><span class="s1">ArrayList&lt;Button&gt;(); 
+        TTTboard.add((Button) findViewById(R.id.TL)); 
+        TTTboard.add((Button) findViewById(R.id.TM)); 
+        TTTboard.add((Button) findViewById(R.id.TR)); 
+        TTTboard.add((Button) findViewById(R.id.CL)); 
+        TTTboard.add((Button) findViewById(R.id.CM)); 
+        TTTboard.add((Button) findViewById(R.id.CR)); 
+        TTTboard.add((Button) findViewById(R.id.BL)); 
+        TTTboard.add((Button) findViewById(R.id.BM)); 
+        TTTboard.add((Button) findViewById(R.id.BR)); 
+ 
+    } 
+ 
+    </span><span class="s2">//making our button clickable</span><span class="s1"> 
+    </span><span class="s0">public void </span><span class="s1">clickTR(View view) { 
+        TextView button = (TextView) (view); 
+        </span><span class="s0">if </span><span class="s1">(button.getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+            button.setText(</span><span class="s3">&quot;X&quot;</span><span class="s1">); 
+            button.setTextSize(</span><span class="s4">60</span><span class="s1">); 
+            Move++; 
+            </span><span class="s0">boolean </span><span class="s1">xWin = checkWin(</span><span class="s3">&quot;X&quot;</span><span class="s1">); 
+            </span><span class="s0">if </span><span class="s1">(xWin) { 
+                XWIN++; 
+                TextView p = findViewById(R.id.PlayerScoreNum); 
+                p.setText(String.valueOf(XWIN)); 
+                TTTboard.get(</span><span class="s4">0</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                TTTboard.get(</span><span class="s4">1</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                TTTboard.get(</span><span class="s4">2</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                TTTboard.get(</span><span class="s4">3</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                TTTboard.get(</span><span class="s4">5</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                TTTboard.get(</span><span class="s4">6</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                TTTboard.get(</span><span class="s4">7</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                TTTboard.get(</span><span class="s4">8</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                Move=</span><span class="s4">0</span><span class="s1">; 
+ 
+            } 
+            </span><span class="s0">else </span><span class="s1">{ 
+ 
+                </span><span class="s0">if</span><span class="s1">(Move&lt;</span><span class="s4">9</span><span class="s1">) { 
+                    Random rand = </span><span class="s0">new </span><span class="s1">Random(); 
+                    </span><span class="s0">boolean </span><span class="s1">success = </span><span class="s0">false</span><span class="s1">; 
+                    </span><span class="s0">while </span><span class="s1">(!success) { 
+                        </span><span class="s0">if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">1</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">1</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">3</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">3</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">5</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">5</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">3</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">3</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">7</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">7</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">7</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">7</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">1</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">1</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">5</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">5</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;O&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                            </span><span class="s2">//prevent the player from wining</span><span class="s1"> 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">1</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">1</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">5</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">5</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">3</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">3</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">7</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">7</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">3</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">3</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">3</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">3</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">7</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">7</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">1</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">1</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">5</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">5</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">8</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">0</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">6</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">2</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else if </span><span class="s1">((TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) || TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) || TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">) || TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">)) &amp;&amp; (TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">))) { 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                            success = </span><span class="s0">true</span><span class="s1">; 
+                            TTTboard.get(</span><span class="s4">4</span><span class="s1">).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                        } </span><span class="s0">else </span><span class="s1">{ 
+                            </span><span class="s0">int </span><span class="s1">r = rand.nextInt(</span><span class="s4">9</span><span class="s1">); 
+                            </span><span class="s0">if </span><span class="s1">(TTTboard.get(r).getText().equals(</span><span class="s3">&quot;&quot;</span><span class="s1">)) { 
+                                TTTboard.get(r).setText(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                                success = </span><span class="s0">true</span><span class="s1">; 
+                                TTTboard.get(r).setTextSize(</span><span class="s4">60</span><span class="s1">); 
+                                </span><span class="s0">if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(</span><span class="s3">&quot;X&quot;</span><span class="s1">)) { 
+ 
+ 
+                                } 
+ 
+ 
+                            } 
+                        } 
+                    } 
+                    Move++; 
+                    </span><span class="s0">boolean </span><span class="s1">oWin = checkWin(</span><span class="s3">&quot;O&quot;</span><span class="s1">); 
+                    </span><span class="s0">if </span><span class="s1">(oWin) { 
+                        TextView q = findViewById(R.id.CPU); 
+                        OWIN++; 
+                        q.setText(String.valueOf(OWIN)); 
+                        TTTboard.get(</span><span class="s4">0</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                        TTTboard.get(</span><span class="s4">1</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                        TTTboard.get(</span><span class="s4">2</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                        TTTboard.get(</span><span class="s4">3</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                        TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                        TTTboard.get(</span><span class="s4">5</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                        TTTboard.get(</span><span class="s4">6</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                        TTTboard.get(</span><span class="s4">7</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                        TTTboard.get(</span><span class="s4">8</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+ 
+                    } 
+                }</span><span class="s0">else</span><span class="s1">{ 
+                    TTTboard.get(</span><span class="s4">0</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                    TTTboard.get(</span><span class="s4">1</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                    TTTboard.get(</span><span class="s4">2</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                    TTTboard.get(</span><span class="s4">3</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                    TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                    TTTboard.get(</span><span class="s4">5</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                    TTTboard.get(</span><span class="s4">6</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                    TTTboard.get(</span><span class="s4">7</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                    TTTboard.get(</span><span class="s4">8</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                    Move=</span><span class="s4">0</span><span class="s1">; 
+                } 
+            } 
+ 
+        } 
+ 
+    } 
+    </span><span class="s2">//[0,1,2]</span><span class="s1"> 
+    </span><span class="s2">//[3,4,5]</span><span class="s1"> 
+    </span><span class="s2">//[6,7,8]</span><span class="s1"> 
+    </span><span class="s2">//[0,3,6]</span><span class="s1"> 
+    </span><span class="s2">//[1,4,7]</span><span class="s1"> 
+    </span><span class="s2">//[2,5,8]</span><span class="s1"> 
+    </span><span class="s2">//[0,4,8]</span><span class="s1"> 
+    </span><span class="s2">//[6,4,2]</span><span class="s1"> 
+ 
+    </span><span class="s0">public boolean </span><span class="s1">checkWin(String player) { 
+        </span><span class="s0">if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(player)) { 
+            </span><span class="s0">return true</span><span class="s1">; 
+        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(player)) { 
+            </span><span class="s0">return true</span><span class="s1">; 
+        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(player)) { 
+            </span><span class="s0">return true</span><span class="s1">; 
+        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">3</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(player)) { 
+            </span><span class="s0">return true</span><span class="s1">; 
+        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">1</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">7</span><span class="s1">).getText().equals(player)) { 
+            </span><span class="s0">return true</span><span class="s1">; 
+        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">5</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(player)) { 
+            </span><span class="s0">return true</span><span class="s1">; 
+        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">0</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">8</span><span class="s1">).getText().equals(player)) { 
+            </span><span class="s0">return true</span><span class="s1">; 
+        } </span><span class="s0">else if </span><span class="s1">(TTTboard.get(</span><span class="s4">2</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">4</span><span class="s1">).getText().equals(player) &amp;&amp; TTTboard.get(</span><span class="s4">6</span><span class="s1">).getText().equals(player)) { 
+ 
+            </span><span class="s0">return true</span><span class="s1">; 
+        } 
+ 
+ 
+ 
+ 
+        </span><span class="s0">return false</span><span class="s1">; 
+    } 
+ 
+ 
+    </span><span class="s0">public void </span><span class="s1">reset(View view) { 
+ 
+        TTTboard.get(</span><span class="s4">0</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+        TTTboard.get(</span><span class="s4">1</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+        TTTboard.get(</span><span class="s4">2</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+        TTTboard.get(</span><span class="s4">3</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+        TTTboard.get(</span><span class="s4">4</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+        TTTboard.get(</span><span class="s4">5</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+        TTTboard.get(</span><span class="s4">6</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+        TTTboard.get(</span><span class="s4">7</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+        TTTboard.get(</span><span class="s4">8</span><span class="s1">).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+        ((TextView) (findViewById(R.id.CPU))).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+        ((TextView) (findViewById(R.id.PlayerScoreNum))).setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+    } 
+ 
+ 
+ 
+ 
+ 
+ 
+} 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+</span></pre>
+</body>
+</html>
